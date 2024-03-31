@@ -1,0 +1,83 @@
+# Configuration file for Poetry Python Packaging and Dependency Management
+#
+#                           DLTool
+#
+# Tooling set for creating Delta Live Table projects on Databricks
+#
+# For more information about Poetry: https://python-poetry.org/
+
+
+[tool.poetry]
+name = "dltool"
+version = "0.1.0"
+description = "Tooling set for creating Delta Live Table projects on Databricks"
+authors = ["ngeense <filoplast@gmail.com>"]
+readme = "README.md"
+license = "GNU GENERAL PUBLIC LICENSE"
+repository = "https://github.com/MazeFX/dltool"
+
+packages = [
+    {include = "dltool", from = "src"}
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Environment :: Console",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    'Programming Language :: Python :: 3.9',
+    "Topic :: Software Development",
+]
+
+[tool.poetry.scripts]
+dltool = "dltool.console.cli:main"
+
+# Dependency installation options
+[tool.poetry.group.docs]
+optional = true
+
+
+[tool.poetry.dependencies]
+python = "^3.9.5"
+cleo = "^2.1.0"
+structlog = "^24.1.0"
+
+# Pydantic models
+pydantic = "^2.6.4"
+pydantic-settings = "^2.2.1"
+cookiecutter = "^2.6.0"
+
+
+[tool.poetry.group.dev.dependencies]
+# Test tools
+pytest = "^8.1.1"
+pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
+
+# Linting support
+pylint = "^3.1.0"
+
+# Formatting
+black = "^24.3.0"
+isort = "^5.13.2"
+
+# Local logger enrichment
+rich = "^13.7.1"
+
+
+[tool.poetry.group.docs.dependencies]
+
+
+[tool.black]
+line-length = 120
+
+
+[tool.coverage.report]
+exclude_lines = ["if __name__ == .__main__.:"]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
