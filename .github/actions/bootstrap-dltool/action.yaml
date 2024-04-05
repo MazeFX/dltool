@@ -1,5 +1,5 @@
-name: Bootstrap Poetry
-description: Configure the environment with the specified Python and Poetry version.
+name: Bootstrap DLTool
+description: Configure the environment with the specified Python and DLTool version.
 
 inputs:
   python-version:

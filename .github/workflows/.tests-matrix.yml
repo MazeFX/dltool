@@ -30,8 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - uses: ./.github/actions/bootstrap-poetry
-        id: bootstrap-poetry
+      - uses: ./.github/actions/bootstrap-dltool
+        id: bootstrap-dltool
         with:
           python-version: ${{ inputs.python-version }}
 
@@ -40,9 +40,9 @@ jobs:
       - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         with:
           path: .mypy_cache
-          key: mypy-${{ runner.os }}-py${{ steps.bootstrap-poetry.outputs.python-version }}-${{ hashFiles('pyproject.toml', 'poetry.lock') }}
+          key: mypy-${{ runner.os }}-py${{ steps.bootstrap-dltool.outputs.python-version }}-${{ hashFiles('pyproject.toml', 'poetry.lock') }}
           restore-keys: |
-            mypy-${{ runner.os }}-py${{ steps.bootstrap-poetry.outputs.python-version }}-
+            mypy-${{ runner.os }}-py${{ steps.bootstrap-dltool.outputs.python-version }}-
             mypy-${{ runner.os }}-
 
       - run: poetry run mypy
@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - uses: ./.github/actions/bootstrap-poetry
+      - uses: ./.github/actions/bootstrap-dltool
         with:
           python-version: ${{ inputs.python-version }}
 
