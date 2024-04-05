@@ -1,0 +1,62 @@
+ci:
+  autofix_prs: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: tests/repositories/fixtures/pypi.org/metadata/.*\.metadata
+      - id: end-of-file-fixer
+        exclude: ^.*\.egg-info/|tests/repositories/fixtures/pypi.org/metadata/.*\.metadata
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-json
+        fail_fast: true
+      - id: check-toml
+        exclude: tests/fixtures/invalid_lock/poetry\.lock
+        fail_fast: true
+      - id: check-yaml
+        fail_fast: true
+      - id: pretty-format-json
+        args: [--autofix, --no-ensure-ascii, --no-sort-keys]
+      - id: check-ast
+      - id: debug-statements
+      - id: check-docstring-first
+
+  - repo: https://github.com/pre-commit/pre-commit
+    rev: v3.7.0
+    hooks:
+      - id: validate_manifest
+
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.3.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        args:
+          [
+            "src/dltool",
+            "tests"
+          ]
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        require_serial: true
+        fail_fast: true
+        types: [python]
+        args:
+          [
+            "--fail-under=7.5",
+            "--rcfile=.pylintrc", # Link to your config file
+            "src/dltool"
+          ]

@@ -1,24 +1,25 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
-import os
-import sys
-from typing import ClassVar
+from typing import TYPE_CHECKING, ClassVar
 
+from cleo.commands.command import Command
 from cleo.helpers import argument, option
-from cleo.io.inputs.argument import Argument
-from cleo.io.inputs.option import Option
 
 from dltool.project_management.classes import Project, ProjectConfig
 
-from .base_command import BaseCommand
+if TYPE_CHECKING:
+    from cleo.io.inputs.argument import Argument
+    from cleo.io.inputs.option import Option
 
 
-class ProjectCommand(BaseCommand):
+class ProjectCommand(Command):
     name = "project"
     description = "Project related action like init, config, etc.."
 
     arguments: ClassVar[list[Argument]] = [
-        argument("action", "Action that you want to perform on the project.", optional=False),
+        argument(
+            "action", "Action that you want to perform on the project.", optional=False
+        ),
         # argument("value", "Setting value.", optional=True, multiple=True),
     ]
 

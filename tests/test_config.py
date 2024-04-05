@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 
 from dltool.config import get_tool_path

@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import pprint
 from pathlib import Path
 
 import structlog
+from pydantic import BaseModel
 
 from dltool.config import get_tool_path
 from dltool.tool.custom_classes import CustomFieldInfo
@@ -13,7 +16,6 @@ logger = structlog.get_logger(__name__)
 
 
 class Project:
-
     def __init__(self, config, io) -> None:
         self._io = io
         self._config = config
@@ -24,23 +26,27 @@ class Project:
         fields = self._config.model_fields
 
         try:
-
             for field, item in fields.items():
-                _input = {"input_name": field, "question_text": item.question_text, "default": item.default}
+                _input = {
+                    "input_name": field,
+                    "question_text": item.question_text,
+                    "default": item.default,
+                }
 
                 input_value = self._get_project_input(_input)
 
-        except Exception as e:
+        except Exception:
             logger.exception("Failed")
 
         return {}
 
     def _get_project_input(self, input):
-
         # TODO - standardize styling elements?
         separator = "<comment> -> </comment>"
 
-        write_str = f"{input['question_text']} <debug>({input['default']})</debug>{separator}"
+        write_str = (
+            f"{input['question_text']} <debug>({input['default']})</debug>{separator}"
+        )
 
         # Ask the question
         self._io.write(write_str)
@@ -51,22 +57,21 @@ class Project:
         return value
 
     def output_templates(self):
-
         templates_folder_path = get_tool_path("templates")
-        print(f"templates folder = {templates_folder_path}")
+        # print(f"templates folder = {templates_folder_path}")
 
-        template = Path(templates_folder_path, "main_dlt_project")
-        print(f"Template = {template}")
+        # template = Path(templates_folder_path, "main_dlt_project")
+        # # print(f"Template = {template}")
 
-        extra_context = self._config.model_json_schema()
-        pprint.pprint(extra_context)
+        # extra_context = self._config.model_json_schema()
+        # # pprint.pprint(extra_context)
 
-        extra_context = self._config.model_fields
-        pprint.pprint(extra_context)
+        # extra_context = self._config.model_fields
+        # # pprint.pprint(extra_context)
 
-        # print(f'Extra context value: {extra_context}')
+        # # print(f'Extra context value: {extra_context}')
 
-        output_dir = Path("./")
+        # output_dir = Path("./")
 
         # try:
         #     cookiecutter(
@@ -91,7 +96,6 @@ class Project:
 
 
 class ProjectConfig(BaseModel):
-
     project_name: str = CustomFieldInfo(
         default="Delta Live Tool Demo",
         question_text="What is the <comment>name</comment> of your <info>project</info>?",

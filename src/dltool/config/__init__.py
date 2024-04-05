@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 from pathlib import Path
 
@@ -7,7 +9,7 @@ logger = structlog.get_logger(__name__)
 
 
 def get_tool_path(name):
-    paths = {"templates": Path(__file__).parent.parent.absolute().joinpath("project_templates")}
+    paths = {"templates": Path(__file__).parent.parent.absolute().joinpath("templates")}
 
     try:
         p = paths[name]

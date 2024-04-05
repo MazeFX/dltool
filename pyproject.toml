@@ -21,22 +21,16 @@ packages = [
 ]
 
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Information Technology",
-    "Environment :: Console",
-    "Operating System :: Unix",
-    "Operating System :: POSIX",
-    'Programming Language :: Python :: 3.9',
-    "Topic :: Software Development",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 [tool.poetry.scripts]
 dltool = "dltool.console.cli:main"
 
-# Dependency installation options
-[tool.poetry.group.docs]
-optional = true
+# # Dependency installation options
+# [tool.poetry.group.docs]
+# optional = true
 
 
 [tool.poetry.dependencies]
@@ -51,27 +45,33 @@ cookiecutter = "^2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.0"
+
 # Test tools
 pytest = "^8.1.1"
 pytest-cov = "^5.0.0"
 pytest-mock = "^3.14.0"
 
-# Linting support
 pylint = "^3.1.0"
 
 # Formatting
-black = "^24.3.0"
 isort = "^5.13.2"
+black = "^24.3.0"
 
 # Local logger enrichment
 rich = "^13.7.1"
 
 
-[tool.poetry.group.docs.dependencies]
+# [tool.poetry.group.docs.dependencies]
 
 
-[tool.black]
-line-length = 120
+# only used in github actions
+[tool.poetry.group.github-actions]
+optional = true
+
+
+[tool.poetry.group.github-actions.dependencies]
+pytest-github-actions-annotate-failures = "^0.1.7"
 
 
 [tool.coverage.report]

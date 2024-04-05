@@ -1,22 +1,25 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Command Line Interface for DLTool.
 
 This is a cli application based on the cleo library.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from cleo.application import Application as BaseApplication
-from cleo.events.console_events import COMMAND
-from cleo.events.event_dispatcher import EventDispatcher
 from cleo.formatters.style import Style
-from cleo.io.inputs.input import Input
-from cleo.io.io import IO
-from cleo.io.outputs.output import Output
-from poetry.console.commands.command import Command
 
 from dltool import __version__
 
 from .project_command import ProjectCommand
+
+if TYPE_CHECKING:
+    from cleo.events.console_events import COMMAND
+    from cleo.io.inputs.input import Input
+    from cleo.io.io import IO
+    from cleo.io.outputs.output import Output
 
 
 class Application(BaseApplication):
@@ -26,7 +29,7 @@ class Application(BaseApplication):
         <blue>  / / / / /  </blue><red> / / / __ \/ __ \/ /  </red>
         <blue> / /_/ / /___</blue><red>/ / / /_/ / /_/ / /___ </red>
         <blue>/_____/_____/</blue><red>_/  \____/\____/_____/ </red>
-                                    
+
                """
 
     description = """

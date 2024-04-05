@@ -44,4 +44,3 @@ pylint:
 	@pylint --fail-under=7.5 $(PROJECT_FOLDER)
 
 ci: | black isort pylint test ## Run CI steps locally.
-

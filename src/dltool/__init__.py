@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
-"""DLTool.
-"""
+"""DLTool."""
+
+from __future__ import annotations
 
 import importlib.metadata
 
