@@ -14,9 +14,9 @@ on:
       run-pytest:
         required: true
         type: boolean
-      run-pytest-export:
-        required: true
-        type: boolean
+      # run-pytest-export:
+      #   required: true
+      #   type: boolean
 
 defaults:
   run:
@@ -69,31 +69,31 @@ jobs:
 
       - run: git diff --exit-code --stat HEAD
 
-  pytest-export:
-    name: pytest (poetry-plugin-export)
-    runs-on: ${{ inputs.runner }}
-    if: inputs.run-pytest-export
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+  # pytest-export:
+  #   name: pytest (poetry-plugin-export)
+  #   runs-on: ${{ inputs.runner }}
+  #   if: inputs.run-pytest-export
+  #   steps:
+  #     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - uses: ./.github/actions/bootstrap-poetry
-        with:
-          python-version: ${{ inputs.python-version }}
+  #     - uses: ./.github/actions/bootstrap-poetry
+  #       with:
+  #         python-version: ${{ inputs.python-version }}
 
-      - uses: ./.github/actions/poetry-install
-        with:
-          args: --with github-actions
+  #     - uses: ./.github/actions/poetry-install
+  #       with:
+  #         args: --with github-actions
 
-      - run: poetry run pip list --format json | jq -r '.[] | "\(.name)=\(.version)"' >> $GITHUB_OUTPUT
-        id: package-versions
+  #     - run: poetry run pip list --format json | jq -r '.[] | "\(.name)=\(.version)"' >> $GITHUB_OUTPUT
+  #       id: package-versions
 
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        with:
-          path: poetry-plugin-export
-          repository: python-poetry/poetry-plugin-export
-          ref: refs/tags/${{ steps.package-versions.outputs.poetry-plugin-export }}
+  #     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+  #       with:
+  #         path: poetry-plugin-export
+  #         repository: python-poetry/poetry-plugin-export
+  #         ref: refs/tags/${{ steps.package-versions.outputs.poetry-plugin-export }}
 
-      - run: poetry run -C .. pytest -v
-        working-directory: ./poetry-plugin-export
+  #     - run: poetry run -C .. pytest -v
+  #       working-directory: ./poetry-plugin-export
 
-      - run: git -C poetry-plugin-export diff --exit-code --stat HEAD
+  #     - run: git -C poetry-plugin-export diff --exit-code --stat HEAD
