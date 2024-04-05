@@ -86,7 +86,7 @@ jobs:
 
   tests-matrix:
     # Use this matrix with multiple jobs defined in a reusable workflow:
-    uses: ./.github/workflows/.tests-matrix.yaml
+    uses: ./.github/workflows/.tests-matrix.yml
     name: ${{ matrix.os.name }} (Python ${{ matrix.python-version }})
     if: '!failure()'
     needs:
