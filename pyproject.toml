@@ -76,6 +76,52 @@ optional = true
 pytest-github-actions-annotate-failures = "^0.1.7"
 
 
+[tool.mypy]
+files = "src, tests"
+mypy_path = "src"
+namespace_packages = true
+explicit_package_bases = true
+show_error_codes = true
+strict = true
+enable_error_code = [
+    "ignore-without-code",
+    "redundant-expr",
+    "truthy-bool",
+]
+# exclude = [
+#     "tests/fixtures",
+#     "tests/masonry/builders/fixtures",
+#     "tests/utils/fixtures",
+# ]
+
+# use of importlib-metadata backport makes it impossible to satisfy mypy
+# without some ignores: but we get different sets of ignores at different
+# python versions.
+[[tool.mypy.overrides]]
+warn_unused_ignores = false
+
+[[tool.mypy.overrides]]
+module = [
+    'deepdiff.*',
+    'fastjsonschema.*',
+    'httpretty.*',
+    'pexpect.*',
+    'requests_toolbelt.*',
+    'shellingham.*',
+    'virtualenv.*',
+    'xattr.*',
+]
+ignore_missing_imports = true
+
+
+[tool.pytest.ini_options]
+addopts = "-n logical"
+testpaths = ["tests"]
+markers = [
+    "network: mark tests that require internet access",
+]
+
+
 [tool.coverage.report]
 exclude_lines = ["if __name__ == .__main__.:"]
 
