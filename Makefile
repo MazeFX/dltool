@@ -38,9 +38,14 @@ docs-coverage:
 	@echo "$(CYAN)>---------------------< $(GREEN)$(bold)Update Docs$(normal)    $(CYAN)>---------------------<$(WHITE)"; \
 	cd ./docs; make coverage
 
+.PHONY: mypy  ## Lint using pylint.
+mypy:
+	@echo "$(CYAN)>---------------------< $(GREEN)$(bold)Running Mypy$(normal) $(CYAN)>---------------------<$(WHITE)"
+	@mypy
+
 .PHONY: pylint  ## Lint using pylint.
 pylint:
 	@echo "$(CYAN)>---------------------< $(GREEN)$(bold)Running PyLint$(normal) $(CYAN)>---------------------<$(WHITE)"
 	@pylint --fail-under=7.5 $(PROJECT_FOLDER)
 
-ci: | black isort pylint test ## Run CI steps locally.
+ci: | black isort pylint mypy test ## Run CI steps locally.
