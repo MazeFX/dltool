@@ -7,10 +7,7 @@ import structlog
 from pydantic import BaseModel
 
 from dltool.config import get_tool_path
-from dltool.tool.custom_classes import CustomFieldInfo
-
-# from dltool.tool.custom_classes import CustomField as Field
-
+from dltool.tool.custom_classes import CustomFieldInfo as FieldInfo
 
 logger = structlog.get_logger(__name__)
 
@@ -96,15 +93,15 @@ class Project:
 
 
 class ProjectConfig(BaseModel):
-    project_name: str = CustomFieldInfo(
+    project_name: str = FieldInfo(
         default="Delta Live Tool Demo",
         question_text="What is the <comment>name</comment> of your <info>project</info>?",
     )
-    project_slug: str = CustomFieldInfo(
+    project_slug: str = FieldInfo(
         default="delta_live_tool_demo",
         question_text="What is the <comment>slug name</comment> of your <info>project</info>?",
     )
-    author: str = CustomFieldInfo(
+    author: str = FieldInfo(
         default="some author function to get github email and name",
         question_text="What is the <comment>name</comment> of your <info>author</info>?",
     )
